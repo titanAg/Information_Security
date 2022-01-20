@@ -51,8 +51,9 @@ public class caesar {
 
 		// Decode this secret message: MAXLXVKXMBLMATMMABLBLGMLXVNKX
 		for (int i = 1; i < 26; i++) {
-			if (cipher("MAXLXVKXMBLMATMMABLBLGMLXVNKX", i).contains("SECRET"))
-				System.out.println(cipher("MAXLXVKXMBLMATMMABLBLGMLXVNKX", i));
+			String message = cipher("MAXLXVKXMBLMATMMABLBLGMLXVNKX", i);
+			if (message.contains("SECRET"))
+				System.out.println(message);
 		}	
 	}
 	
