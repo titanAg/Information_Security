@@ -1,3 +1,6 @@
+// Kyle Orcutt
+// Information Security - Lab 1
+
 public class caesar {
 	
 	// Rotate - function for shifting a character n letters
@@ -5,7 +8,8 @@ public class caesar {
 	// For example, if c = A and n = 1, it would return 'B'
 	// If c = A and n = 2, it would return 'C', and so forth
 	public static char rotate(char c, int n) {
-		//TODO - Complete this function.
+		int pos = (c - 'A' + n) % 26;
+		return (char)(pos + 'A');
 	}
 	
 	// Cipher - function for adjustable Caesar Cipher
@@ -13,7 +17,11 @@ public class caesar {
 	// It then uses the rotate function above to shift each character
 	// in the string n characters, and returns the fully-shifted string
 	public static String cipher(String input, int n) {
-		//TODO - Complete this function.
+		String out = "";
+		for (int i = 0; i < input.length(); i++) {
+			out += rotate(input.charAt(i),n);
+		}
+		return out;
 	}
 	
 	// Polyalpha - function for simple polyalphabetic cipher
@@ -22,7 +30,12 @@ public class caesar {
 	// even letter, and the z offset for every odd letter in the input
 	// string.
 	public static String polyalpha(String input, int n, int z) {
-		//TODO - Complete this function.
+		String out = "";
+		for (int i = 0; i < input.length(); i++) {
+			out += rotate(input.charAt(i),
+						  (i % 2 == 0 ? n : z));
+		}
+		return out;
 	}
 
 	// Testing section
@@ -35,8 +48,14 @@ public class caesar {
 		System.out.println(cipher("URYYBJBEYQ", 13));
 		// This should return 'UVYCBNBIYU' if your polyalpha function is working properly
 		System.out.println(polyalpha("HELLOWORLD", 13, 17));
+
+		// Decode this secret message: MAXLXVKXMBLMATMMABLBLGMLXVNKX
+		for (int i = 1; i < 26; i++) {
+			if (cipher("MAXLXVKXMBLMATMMABLBLGMLXVNKX", i).contains("SECRET"))
+				System.out.println(cipher("MAXLXVKXMBLMATMMABLBLGMLXVNKX", i));
+		}	
 	}
 	
-	// Decode this secret message: MAXLXVKXMBLMATMMABLBLGMLXVNKX
+	
 
 }
