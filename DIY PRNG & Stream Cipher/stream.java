@@ -1,30 +1,23 @@
-// You should import your myRandom class here
+// Kyle Orcutt
+// 232 - lab 2 Xorshift* PRNG function
 
-//In this class you should implement the Xorshift* PRNG function
-//(See lecture notes if you're unsure how that works)
 public class stream {
 	
-	// This is the internal PRNG generator
-	myRandom rand;
+	myRandom rand; // internal PRNG generator
 	
-	// Constructor - In this function, you should create a new
-	// myRandom object using the input long seed, and then store it
-	// in the rand class variable.
 	public stream(long seed) {
-		// TODO: Complete this.
+		rand = new myRandom(seed);
 	}
 	
-	// In this function you should use a loop to select each character in
-	// the input string. You should use the charAt() function to convert
-	// the character to an integer. You should then XOR that integer with:
-	// Math.abs(((int)rand.getRand() % 10)), which will return pseudorandom
-	// number between 0 and 10.
-	// Then, append the character to the output. Once all characters have been
-	// XOR'd, you should return the output.
-	// Note: This function also serves to decrypt an encrypted message.
+	// encrypt & decrypt 
 	public String encrypt(String input) {
-		// TODO: Complete this.
-		// Math.abs(((int)this.rand.getRand() % 10));
+		String output = "";
+		for (int i = 0; i < input.length(); i++) {
+			int n = input.charAt(i);
+			n ^= Math.abs(((int)rand.getRand() % 10)); // XOR'd with rand class
+			output += (char)n;
+		}
+		return output;
 	}
 
 	// Testing section

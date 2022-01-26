@@ -1,28 +1,24 @@
+// Kyle Orcutt
+// 232 - lab 2 
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Random;
 
-// In this class you should implement the Xorshift* PRNG function
-// (See lecture notes if you're unsure how that works)
 public class myRandom {
 	
-	// This is the internal state variable
-	long state;
+	long state; // internal state
 	
-	// Constructor - In this function, you should set the internal state
-	// to the value of the input integer seed
 	public myRandom(long seed) {
-		// TODO: Fill this in
+		this.state = seed;
 	}
 	
-	// getRand() should return a pseudorandom long
-	// This is done by fetching the state, shifting it right 12,
-	// left 25, and then right 27. This is then saved back to the state variable.
-	// Then, we multiply it by 2685821657736338717 (add L on the end for long)
-	// And return the resultant value.
 	public long getRand() {
-		// TODO: Fill this in
+		this.state ^= this.state >> 12;
+		this.state ^= this.state << 25;
+		this.state ^= this.state >> 27;
+		return this.state * 2685821657736338717L;
 	}
 
 	// Testing section
