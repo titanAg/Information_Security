@@ -16,6 +16,10 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+// 232 L4 - Javax Crypto
+// Kyle Orcutt
+
+
 public class encryptFile {
 	
 	
@@ -43,7 +47,7 @@ public class encryptFile {
 		Cipher cipher;
 		byte[] out = {};
 		try {
-			cipher = Cipher.getInstance("DES/CBC/PKCS5PADDING");
+			cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 			cipher.init(mode, skSpec, ivpSpec);
 			out = cipher.doFinal(input);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
@@ -82,17 +86,25 @@ public class encryptFile {
 		System.out.println("Enter File Path:");
 		String filePath = input.nextLine();
 
+		String t = "";
+		do {
+			System.out.println("Enter 1 for AES enter 2 for DES: ");
+			t = input.nextLine();
+		} while (!t.toLowerCase().equals("1") && !t.toLowerCase().equals("2"));
+		int type = Integer.parseInt(t);
+		int byteLimit = type == 1 ? 16 : 8;
+
 		String initVector = "";
 		do {
-			System.out.println("Enter Initialization Vector (16 chars):");
+			System.out.println("Enter Initialization Vector (" + byteLimit + " chars):");
 			initVector = input.nextLine();
-		} while (initVector.length() != 16);
+		} while (initVector.length() != byteLimit);
 
 		String pass = "";
 		do {
-			System.out.println("Enter Password (16 chars):");
+			System.out.println("Enter Password (" + byteLimit + " chars):");
 			pass = input.nextLine();
-		} while (pass.length() != 16);
+		} while (pass.length() != byteLimit);
 
 		String mode = "";
 		do {
@@ -100,12 +112,7 @@ public class encryptFile {
 			mode = input.nextLine();
 		} while (!mode.toLowerCase().equals("encrypt") && !mode.toLowerCase().equals("decrypt"));
 
-		String type = "";
-		do {
-			System.out.println("Enter 1 for AES enter 2 for DES: ");
-			type = input.nextLine();
-		} while (!type.toLowerCase().equals("1") && !type.toLowerCase().equals("2"));
-		cryptFile(filePath, initVector.getBytes(), pass.getBytes(), (mode.toLowerCase().equals("encrypt") ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE), Integer.parseInt(type));
+		cryptFile(filePath, initVector.getBytes(), pass.getBytes(), (mode.toLowerCase().equals("encrypt") ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE), type);
 		System.out.println("Done");
 	}
 
@@ -120,7 +127,14 @@ public class encryptFile {
 		// This should print "Hello World"
 		System.out.println(new String(decrypted));
 		
-		// Uncomment below to test menu section once complete
+		// AES
+		// aaaabbbbccccdddd
+		// thisis16bytesyes
+		
+		// DES
+		// aaaabbbb
+		// 8bytes12
+
 		menu();
 	}
 
