@@ -1,1 +1,1 @@
-# COSC232_Info_Security
+# Info_Security Course Work and Experiments
